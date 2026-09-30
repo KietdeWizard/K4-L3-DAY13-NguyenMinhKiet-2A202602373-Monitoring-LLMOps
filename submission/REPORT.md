@@ -9,7 +9,7 @@
 - **Lớp:** K4-L3B
 - **Repository URL:** https://github.com/KietdeWizard/K4-L3-DAY13-NguyenMinhKiet-2A202602373-Monitoring-LLMOps
 - **Commit SHA cuối:**
-- **Challenge ID:** cmunhlj3200vuad0fppuny3as
+- **Challenge ID:** cmunhlj3200vuad0fppuny3as / trace id: c26a46be50d8e55a8955d4da35c158f2
 - **Tên project Langfuse cá nhân:** `day13-k4-l3b-2A202602373`
 
 ## 2. Evidence index
@@ -61,11 +61,11 @@ Runtime metrics from the current 10-request load test: latency P95 1639 ms, TTFT
 - **Cách xác nhận traces do chính tôi tạo trong project cá nhân:**
 - **Cấu trúc root/retrieval/generation observations:**
 - **Cách nối trace với log:**
-- **Prompt name:**
-- **Version/label baseline:**
-- **Version/label candidate:**
-- **Trace ID của mỗi version:**
-- **Cách promote và rollback `production`:**
+- **Prompt name:** `day13-chat`
+- **Version/label baseline:** Version 1, label `baseline`; correlation ID `req-29a4ba70`.
+- **Version/label candidate:** Version 2, label `candidate`; correlation ID `req-29b03aff`.
+- **Trace ID của mỗi version:** Version 1: `9ad00a7f3172651782077398f11c42bc` (correlation ID `req-29a4ba70`); Version 2: `baec2d5e8fa1989463faf980639f9cc4` (correlation ID `req-29b03aff`).
+- **Cách promote và rollback `production`:** Promote `production` từ Version 1 sang Version 2, xác nhận bằng trace mới; sau đó rollback `production` về Version 1 và xác nhận lại bằng trace mới.
 
 ## 6. Dashboard, SLO và alerts
 
