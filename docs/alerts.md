@@ -22,39 +22,39 @@ Ví dụ dưới đây minh họa mức độ cụ thể cần có. Học viên 
 
 ## Alert 1
 
-- Tên:
-- Severity:
-- Duration:
+- Tên: `HighLatencyP95`
+- Severity: `warning`
+- Duration: `5m`
 - Kênh thông báo: Slack
-- SLI/SLO liên quan:
-- Điều kiện và thời gian duy trì:
-- Ảnh hưởng tới người dùng:
-- Ba bước kiểm tra đầu tiên:
-- Mitigation tạm thời:
-- Owner:
+- SLI/SLO liên quan: `response_sent.latency_ms`, fast successful requests
+- Điều kiện và thời gian duy trì: `p95(latency_ms) > 3000ms` trong 5 phút.
+- Ảnh hưởng tới người dùng: câu trả lời đến chậm.
+- Ba bước kiểm tra đầu tiên: xác nhận panel latency; lọc log theo latency và correlation ID; mở trace để so sánh retrieval/generation.
+- Mitigation tạm thời: tắt scenario chậm, giảm tải hoặc rollback prompt nếu trace chứng minh prompt gây regression.
+- Owner: `student-oncall`
 
 ## Alert 2
 
-- Tên:
-- Severity:
-- Duration:
+- Tên: `ElevatedErrorRate`
+- Severity: `critical`
+- Duration: `5m`
 - Kênh thông báo: Slack
-- SLI/SLO liên quan:
-- Điều kiện và thời gian duy trì:
-- Ảnh hưởng tới người dùng:
-- Ba bước kiểm tra đầu tiên:
-- Mitigation tạm thời:
-- Owner:
+- SLI/SLO liên quan: error budget của fast successful requests
+- Điều kiện và thời gian duy trì: `error_rate_pct > 2%` trong 5 phút.
+- Ảnh hưởng tới người dùng: request thất bại hoặc không có câu trả lời.
+- Ba bước kiểm tra đầu tiên: xác nhận error panel; lọc `request_failed`; mở trace cùng correlation ID để tìm span lỗi.
+- Mitigation tạm thời: tắt incident/tool lỗi, khôi phục cấu hình gần nhất và theo dõi error budget.
+- Owner: `student-oncall`
 
 ## Alert 3
 
-- Tên:
-- Severity:
-- Duration:
+- Tên: `LowRetrievalSuccess`
+- Severity: `warning`
+- Duration: `10m`
 - Kênh thông báo: Slack
-- SLI/SLO liên quan:
-- Điều kiện và thời gian duy trì:
-- Ảnh hưởng tới người dùng:
-- Ba bước kiểm tra đầu tiên:
-- Mitigation tạm thời:
-- Owner:
+- SLI/SLO liên quan: retrieval success rate guardrail
+- Điều kiện và thời gian duy trì: `retrieval_success_rate_pct < 90%` trong 10 phút.
+- Ảnh hưởng tới người dùng: câu trả lời thiếu context hoặc kém chính xác.
+- Ba bước kiểm tra đầu tiên: xác nhận tỷ lệ `tool_success`; lọc request lỗi theo correlation ID; mở retrieval span để kiểm tra timeout/failure.
+- Mitigation tạm thời: khôi phục vector store/configuration hoặc chuyển sang fallback an toàn.
+- Owner: `student-oncall`

@@ -4,13 +4,13 @@
 
 ## 1. Thông tin học viên
 
-- **Họ và tên:**
-- **MSSV:**
+- **Họ và tên:** Nguyễn Minh Kiệt
+- **MSSV:** 2A202602373 
 - **Lớp:** K4-L3B
-- **Repository URL:**
+- **Repository URL:** https://github.com/KietdeWizard/K4-L3-DAY13-NguyenMinhKiet-2A202602373-Monitoring-LLMOps
 - **Commit SHA cuối:**
-- **Challenge ID:**
-- **Tên project Langfuse cá nhân:** `day13-k4-l3b-<MSSV>`
+- **Challenge ID:** cmunhlj3200vuad0fppuny3as
+- **Tên project Langfuse cá nhân:** `day13-k4-l3b-2A202602373`
 
 ## 2. Evidence index
 
@@ -37,13 +37,17 @@
 
 | Nội dung | Baseline | Kết quả cuối | Nhận xét |
 |---|---|---|---|
-| `validate_logs.py` | | | |
-| `validate_dashboard.py` | | | |
-| `pytest` | | | |
+| `validate_logs.py` | Not captured before code changes | 100/100 | 0 missing fields, 0 PII leaks |
+| `validate_dashboard.py` | Not captured | 6/6 panels | Dashboard contract valid |
+| `pytest` | Not captured | 24 passed | Runtime test suite passed |
 | Số traces hợp lệ | | | |
 | Số PII leak | | | |
 | Latency P95 / TTFT P95 | | | |
 | Retrieval success rate | | | |
+
+> Baseline note: CP0 health and Langfuse tracing were verified. The original starter validator score was not captured before code changes, so no baseline number is invented here. Runtime validator output, trace IDs, and challenge evidence must be added from the student's environment before submission.
+
+Runtime metrics from the current 10-request load test: latency P95 1639 ms, TTFT P95 50 ms, retrieval success 100% (10/10). Langfuse trace count and prompt/challenge evidence remain to be confirmed in the personal project.
 
 ## 4. Logging và PII
 
