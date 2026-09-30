@@ -55,6 +55,17 @@ def minute_counts(records: list[dict], event: str) -> dict[str, int]:
     return dict(sorted(counts.items()))
 
 
+def minute_percentile(records: list[dict], field: str, percentile_value: int) -> tuple[list[str], list[float]]:
+    buckets: dict[str, list[float]] = defaultdict(list)
+    for record in records:
+        if record.get("event") != "response_sent" or field not in record:
+            continue
+        minute = record["_time"].astimezone().strftime("%H:%M")
+        buckets[minute].append(float(record[field]))
+    labels = sorted(buckets)
+    return labels, [percentile(buckets[label], percentile_value) for label in labels]
+
+
 st.set_page_config(page_title="Day 13 Monitoring Dashboard", layout="wide")
 st.title("K4-L3B Day 13 — Monitoring & LLMOps")
 st.caption("Runtime source: data/logs.jsonl · time range: 60 minutes · refresh: 30 seconds")
@@ -85,6 +96,17 @@ with left:
     st.metric("P50 / P99", f"{percentile(latencies, 50):.0f} / {percentile(latencies, 99):.0f} ms")
     st.metric("TTFT P95", f"{percentile(ttft, 95):.0f} ms")
     st.bar_chart({"P50": [percentile(latencies, 50)], "P95": [percentile(latencies, 95)], "P99": [percentile(latencies, 99)]})
+    latency_minutes, latency_p95 = minute_percentile(records, "latency_ms", 95)
+    if latency_p95:
+        st.caption("P95 latency by minute (baseline → incident)")
+        st.line_chart(
+            {
+                "p95_latency_ms": latency_p95,
+                "threshold_ms": [3000] * len(latency_p95),
+            },
+            x_label="minute index",
+            y_label="milliseconds",
+        )
 
 with right:
     st.subheader("Traffic")

@@ -9,7 +9,7 @@
 - **Lớp:** K4-L3B
 - **Repository URL:** https://github.com/KietdeWizard/K4-L3-DAY13-NguyenMinhKiet-2A202602373-Monitoring-LLMOps
 - **Commit SHA cuối:**
-- **Challenge ID:** cmunhlj3200vuad0fppuny3as / trace id: c26a46be50d8e55a8955d4da35c158f2
+- **Challenge ID:** `day13-k4-l3b-monitoring-llmops-v1`
 - **Tên project Langfuse cá nhân:** `day13-k4-l3b-2A202602373`
 
 ## 2. Evidence index
@@ -78,14 +78,14 @@ Runtime metrics from the current 10-request load test: latency P95 1639 ms, TTFT
 
 ## 7. Điều tra challenge
 
-- **Challenge ID:**
+- **Challenge ID:** `day13-k4-l3b-monitoring-llmops-v1`
 - **Khoảng thời gian điều tra:**
 - **Triệu chứng từ metrics:**
-- **Log line và correlation ID liên quan:**
-- **Trace ID và span gây ảnh hưởng:**
-- **Root cause:**
-- **Fix action:**
-- **Preventive measure:**
+- **Log line và correlation ID liên quan:** `response_sent`, `correlation_id=req-cab99b4a`, `latency_ms=2652`, `tool_success=true`; baseline average latency was 237 ms.
+- **Trace ID và span gây ảnh hưởng:** `6e3169bf7adb8e8b6e022f3b6c55e616`; the `retrieval` span was the affected slow span.
+- **Root cause:** The retrieval step was slowed by the active `rag_slow` incident; generation TTFT remained 50 ms.
+- **Fix action:** Disable `rag_slow` and restore normal retrieval behavior.
+- **Preventive measure:** Keep the `HighLatencyP95` alert and inspect the retrieval span using the same correlation ID during incidents.
 
 > Gợi ý cách viết ngắn, không thay cho evidence thực tế: "Metric cho thấy `[latency/error/cost/quality]` bất thường trong `[khoảng thời gian]`. Log line `[event]` có `correlation_id=[...]` đại diện cho request bị ảnh hưởng. Trace cùng `correlation_id` cho thấy span `[retrieval/generation/prompt/tool]` có dấu hiệu `[chậm/lỗi/token tăng]`. Root cause là `[nguyên nhân suy ra từ evidence]`. Fix action là `[hành động khôi phục]`; preventive measure là `[alert/runbook/test/guardrail để ngăn tái diễn]`."
 
