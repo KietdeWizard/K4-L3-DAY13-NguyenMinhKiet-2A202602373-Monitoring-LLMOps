@@ -49,15 +49,24 @@ class FakeLLM:
         if tracing_enabled():
             update_generation = getattr(get_langfuse_client(), "update_current_generation", None)
             if update_generation is not None:
+                input_cost = (response.usage.input_tokens / 1_000_000) * 3
+                output_cost = (response.usage.output_tokens / 1_000_000) * 15
                 update_generation(
                     model=self.model,
                     usage_details={
                         "input": response.usage.input_tokens,
                         "output": response.usage.output_tokens,
+                        "total": response.usage.input_tokens + response.usage.output_tokens,
                     },
                     cost_details={
-                        "input": (response.usage.input_tokens / 1_000_000) * 3,
-                        "output": (response.usage.output_tokens / 1_000_000) * 15,
+                        "input": input_cost,
+                        "output": output_cost,
+                        "total": input_cost + output_cost,
+                    },
+                    metadata={
+                        "input_tokens": response.usage.input_tokens,
+                        "output_tokens": response.usage.output_tokens,
+                        "cost_usd": round(input_cost + output_cost, 6),
                     },
                 )
         return response

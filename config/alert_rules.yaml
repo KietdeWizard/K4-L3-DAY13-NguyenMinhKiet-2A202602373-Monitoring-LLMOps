@@ -5,7 +5,7 @@ alerts:
     duration: 5m
     type: symptom-based
     channel: slack
-    owner: student-oncall
+    owner: student-2A202602373
     runbook: docs/alerts.md#alert-1
   - name: ElevatedErrorRate
     severity: critical
@@ -13,7 +13,7 @@ alerts:
     duration: 5m
     type: symptom-based
     channel: slack
-    owner: student-oncall
+    owner: student-2A202602373
     runbook: docs/alerts.md#alert-2
   - name: LowRetrievalSuccess
     severity: warning
@@ -21,5 +21,5 @@ alerts:
     duration: 10m
     type: symptom-based
     channel: slack
-    owner: student-oncall
+    owner: student-2A202602373
     runbook: docs/alerts.md#alert-3

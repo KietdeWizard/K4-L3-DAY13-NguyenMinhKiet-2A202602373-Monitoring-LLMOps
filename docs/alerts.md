@@ -18,7 +18,7 @@ Ví dụ dưới đây minh họa mức độ cụ thể cần có. Học viên 
   2. Lọc `data/logs.jsonl` trong khoảng đó, lấy một `correlation_id` có `latency_ms` cao.
   3. Mở trace cùng `correlation_id` trên Langfuse, so sánh các span chính để xác định bước nào bất thường.
 - Mitigation tạm thời: dựa trên evidence thực tế để rollback prompt, khôi phục cấu hình liên quan, tắt practice scenario hoặc giảm tải khi demo.
-- Owner: `student-<MSSV>`
+- Owner: `NguyenMinhKiet-2A202602373`
 
 ## Alert 1
 
@@ -31,7 +31,7 @@ Ví dụ dưới đây minh họa mức độ cụ thể cần có. Học viên 
 - Ảnh hưởng tới người dùng: câu trả lời đến chậm.
 - Ba bước kiểm tra đầu tiên: xác nhận panel latency; lọc log theo latency và correlation ID; mở trace để so sánh retrieval/generation.
 - Mitigation tạm thời: tắt scenario chậm, giảm tải hoặc rollback prompt nếu trace chứng minh prompt gây regression.
-- Owner: `student-oncall`
+- Owner: `NguyenMinhKiet-2A202602373`
 
 ## Alert 2
 
@@ -44,7 +44,7 @@ Ví dụ dưới đây minh họa mức độ cụ thể cần có. Học viên 
 - Ảnh hưởng tới người dùng: request thất bại hoặc không có câu trả lời.
 - Ba bước kiểm tra đầu tiên: xác nhận error panel; lọc `request_failed`; mở trace cùng correlation ID để tìm span lỗi.
 - Mitigation tạm thời: tắt incident/tool lỗi, khôi phục cấu hình gần nhất và theo dõi error budget.
-- Owner: `student-oncall`
+- Owner: `NguyenMinhKiet-2A202602373`
 
 ## Alert 3
 
@@ -57,4 +57,4 @@ Ví dụ dưới đây minh họa mức độ cụ thể cần có. Học viên 
 - Ảnh hưởng tới người dùng: câu trả lời thiếu context hoặc kém chính xác.
 - Ba bước kiểm tra đầu tiên: xác nhận tỷ lệ `tool_success`; lọc request lỗi theo correlation ID; mở retrieval span để kiểm tra timeout/failure.
 - Mitigation tạm thời: khôi phục vector store/configuration hoặc chuyển sang fallback an toàn.
-- Owner: `student-oncall`
+- Owner: `NguyenMinhKiet-2A202602373`
